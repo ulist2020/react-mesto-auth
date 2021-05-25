@@ -27,6 +27,10 @@ function AddPlacePopup(props) {
         <PopupWithForm 
         name="popup-addimage" 
         title="Новое место"
+        classNameForm="popup__container"
+        classNameCloseButton="popup__close-button"
+        classNameHeader="popup__header"
+        classNameButton="popup__button"
         isOpen={props.isOpen}
         onClose={props.onClose}
         onSubmit={handleSubmit}

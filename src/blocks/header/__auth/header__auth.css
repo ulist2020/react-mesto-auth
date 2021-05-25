@@ -4,4 +4,12 @@
     font-size: 18px;
     line-height: 22px;
     text-align: right;
+    cursor: pointer;
+    transition: opacity linear 0.5s;
 }
+
+.header__auth:hover{
+    opacity: 0.6;
+}
+
+

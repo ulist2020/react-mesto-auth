@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Link, Switch } from "react-router-dom";
 
-function Header() {
+function Header(props) {
   return (
     <header className="header">
       <div className="header__logo" />
@@ -18,8 +18,8 @@ function Header() {
               </Link>
             </Route>
             <Route path="/">
-              <p className="header__email"></p>
-              <p className="header__auth" >
+              <p className="header__email">япвичарыртсчв</p>
+              <p className="header__auth" onClick={props.onSignOut}>
                 Выйти
               </p>
             </Route>

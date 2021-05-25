@@ -10,6 +10,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import Register from './Register';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
+  const [isRegisterPopupOpen, setisRegisterPopupOpen] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState({link:'',name:'',isOpen: false});
 
@@ -32,6 +34,9 @@ function App() {
   }
   function handleAddPlaceClick() {
     setisAddPlacePopupOpen(true);
+  }
+  function handleMenuClick() {
+    setisRegisterPopupOpen(true);
   }
 
    function handleCardClick(name,link) {
@@ -124,7 +129,9 @@ function App() {
           <div className="page">
             <div className="page__container">
 
-              <Header />
+              <Header
+               onSignOut={handleMenuClick}
+              />
               
               <Main 
                 onEditAvatar={handleEditAvatarClick} 
@@ -134,6 +141,7 @@ function App() {
                 onCardClick={handleCardClick}
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDelete}
+                
               >
               </Main>
                       
@@ -143,7 +151,7 @@ function App() {
                 isOpen={isEditProfilePopupOpen} 
                 onClose={closeAllPopups}
                 onUpdateUser={handleUpdateUser}
-                />
+              />
 
               <EditAvatarPopup 
                 isOpen={isEditAvatarPopupOpen} 
@@ -157,7 +165,6 @@ function App() {
                 onUpdateCards={handleUpdateCards}
               />
 
-
               <PopupWithForm 
                 name="popup-confirm" 
                 title="Вы уверены?"
@@ -165,10 +172,17 @@ function App() {
               </PopupWithForm>
 
               <ImagePopup
-              card={selectedCard}
-              isOpen={selectedCard.isOpen}
-              onClose={()=> closeAllPopups()} 
+                card={selectedCard}
+                isOpen={selectedCard.isOpen}
+                onClose={()=> closeAllPopups()} 
               />
+
+              <Register 
+                isOpen={isRegisterPopupOpen} 
+                //onClose={closeAllPopups}
+                //onSignOut={handleUpdateUser}
+              />
+
 
             </div>
           </div>

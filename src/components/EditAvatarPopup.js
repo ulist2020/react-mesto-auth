@@ -15,7 +15,11 @@ function EditProfilePopup(props) {
     return (
         <PopupWithForm 
         name="popup-update-avatar" 
-        title="Обновить аватар" 
+        title="Обновить аватар"
+        classNameForm="popup__container"
+        classNameCloseButton="popup__close-button"
+        classNameHeader="popup__header"
+        classNameButton="popup__button" 
         isOpen={props.isOpen}
         onClose={props.onClose}
         onSubmit={handleSubmit}
