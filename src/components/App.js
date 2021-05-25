@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Route, Switch } from "react-router-dom";
 import '../index.css';
 import Header from './Header';
 import Main from './Main';
@@ -11,6 +12,8 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import Register from './Register';
+import Login from './Login';
+import ProtectedRoute from "./ProtectedRoute";
 
 
 function App() {
@@ -19,6 +22,7 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isRegisterPopupOpen, setisRegisterPopupOpen] = useState(false);
+  const [isEnterPopupOpen, setisEnterPopupOpen] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState({link:'',name:'',isOpen: false});
 
@@ -35,8 +39,11 @@ function App() {
   function handleAddPlaceClick() {
     setisAddPlacePopupOpen(true);
   }
-  function handleMenuClick() {
+  function handleOutClick() {
     setisRegisterPopupOpen(true);
+  }
+  function handleEnterClick() {
+    setisEnterPopupOpen(true);
   }
 
    function handleCardClick(name,link) {
@@ -130,10 +137,26 @@ function App() {
             <div className="page__container">
 
               <Header
-               onSignOut={handleMenuClick}
+               onSignOut={handleOutClick}
+               onEnter={handleEnterClick}
               />
+              <Switch>
+                <Route path="/sign-up">
+                  <Register 
+                    isOpen={isRegisterPopupOpen} 
+                    //onClose={closeAllPopups}
+                    //onSignOut={handleUpdateUser}
+                  />
+                </Route>
+                <Route path="/sign-in">
+                  <Login 
+                    isOpen={isEnterPopupOpen} 
+                    //onClose={closeAllPopups}
+                    //onSignOut={handleUpdateUser}
+                  />
+                </Route>
               
-              <Main 
+                <ProtectedRoute
                 onEditAvatar={handleEditAvatarClick} 
                 onEditProfile={handleEditProfileClick} 
                 onAddPlace={handleAddPlaceClick}
@@ -141,10 +164,9 @@ function App() {
                 onCardClick={handleCardClick}
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDelete}
-                
-              >
-              </Main>
-                      
+                component={Main}
+                />
+               </Switch>       
               <Footer />
 
               <EditProfilePopup 
@@ -175,12 +197,6 @@ function App() {
                 card={selectedCard}
                 isOpen={selectedCard.isOpen}
                 onClose={()=> closeAllPopups()} 
-              />
-
-              <Register 
-                isOpen={isRegisterPopupOpen} 
-                //onClose={closeAllPopups}
-                //onSignOut={handleUpdateUser}
               />
 
 

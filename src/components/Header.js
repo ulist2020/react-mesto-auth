@@ -8,12 +8,12 @@ function Header(props) {
         <div className="header__menu">
           <Switch>
             <Route path="/sign-up">
-              <Link to="./sign-in" className="header__auth">
+              <Link to="./sign-in" className="header__auth" onClick={props.onEnter}>
                 Войти
               </Link>
             </Route>
             <Route path="/sign-in">
-              <Link to="./sign-up" className="header__auth">
+              <Link to="./sign-up" className="header__auth" >
                 Регистрация
               </Link>
             </Route>
