@@ -9,12 +9,12 @@ function Login(props) {
         classNameForm="popup__container_auth"
         classNameCloseButton="popup__close-button_auth"
         classNameButton="popup__button_auth"
-        isOpen={props.isOpen}
+        //isOpen={props.isOpen}
         //onSubmit={handleSubmit}
         buttonText='Войти'
         >
         <input
-          //value={link}
+          //value={email}
           //onChange={handleChangeLink} 
           //id="popup__link" 
           className="popup__input_auth" 
@@ -25,7 +25,7 @@ function Login(props) {
         />
 
         <input 
-            //value={name||''} 
+            //value={password} 
             //onChange={handleChangeName} 
             //id="popup__name-author" 
             className="popup__input_auth" 

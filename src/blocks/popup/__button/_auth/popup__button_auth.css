@@ -1,22 +1,6 @@
 .popup__button_auth{
     background: #FFFFFF;
-    border-radius: 2px;
-    height: 50px;
-    width: 358px;
     color: #000000;;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 22px;
-    text-align: center;
-    margin-top: auto;
-    padding: 0;
-    cursor: pointer;
-    transition: opacity linear 0.5s;
-    margin-top: 216px;
+    margin: 216px 0 0 0;
     
-}
-
-.popup__button_.popup__button_auth{
-    opacity: 0.8;
 }

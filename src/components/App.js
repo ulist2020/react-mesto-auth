@@ -39,7 +39,7 @@ function App() {
   function handleAddPlaceClick() {
     setisAddPlacePopupOpen(true);
   }
-  function handleOutClick() {
+  function handlRegistrationClick() {
     setisRegisterPopupOpen(true);
   }
   function handleEnterClick() {
@@ -137,36 +137,39 @@ function App() {
             <div className="page__container">
 
               <Header
-               onSignOut={handleOutClick}
-               onEnter={handleEnterClick}
+               //onRegistration={handlRegistrationClick}
+               //onEnter={handleEnterClick}
               />
+
               <Switch>
-                <Route path="/sign-up">
-                  <Register 
-                    isOpen={isRegisterPopupOpen} 
-                    //onClose={closeAllPopups}
-                    //onSignOut={handleUpdateUser}
-                  />
-                </Route>
                 <Route path="/sign-in">
                   <Login 
-                    isOpen={isEnterPopupOpen} 
+                    //isOpen={isEnterPopupOpen} 
                     //onClose={closeAllPopups}
                     //onSignOut={handleUpdateUser}
                   />
                 </Route>
-              
-                <ProtectedRoute
-                onEditAvatar={handleEditAvatarClick} 
-                onEditProfile={handleEditProfileClick} 
-                onAddPlace={handleAddPlaceClick}
-                cards={cards}
-                onCardClick={handleCardClick}
-                onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete}
-                component={Main}
+
+                <Route path="/sign-up">
+                  <Register 
+                    //isOpen={isRegisterPopupOpen} 
+                    //onClose={closeAllPopups}
+                    //onSignOut={handleUpdateUser}
+                  />
+                </Route>
+
+                <ProtectedRoute exact path="/"
+                  component={Main}
+                  onEditAvatar={handleEditAvatarClick} 
+                  onEditProfile={handleEditProfileClick} 
+                  onAddPlace={handleAddPlaceClick}
+                  cards={cards}
+                  onCardClick={handleCardClick}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
                 />
-               </Switch>       
+              
+              </Switch>        
               <Footer />
 
               <EditProfilePopup 

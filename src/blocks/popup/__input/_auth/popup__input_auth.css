@@ -1,15 +1,5 @@
 .popup__input_auth{
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 17px;
-    width: 358px;
-    margin: 0;
-    border: none;
-    padding: 0;
     border-bottom: 2px solid #CCCCCC;
-    height: 40px;
-    margin-top: 17px;
     color: #FFFFFF;
     background-color: transparent;
 }
