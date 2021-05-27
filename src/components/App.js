@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import '../index.css';
 import Header from './Header';
 import Main from './Main';
@@ -15,6 +15,7 @@ import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
+import * as auth from "../utils/auth";
 
 
 function App() {
@@ -24,7 +25,10 @@ function App() {
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isInfoTooltipOpen, setisInfoTooltipOpen] = useState(false);
   const [loggedIn, setloggedIn] = useState(false);
+  //const [massage, setMassage] = useState("");
   //const [isEnterPopupOpen, setisEnterPopupOpen] = useState(false);
+  const history = useHistory();
+  const [registerSuccess, setRegisterSuccess] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState({link:'',name:'',isOpen: false});
 
@@ -134,6 +138,27 @@ function App() {
       .catch((err) => console.log(`Ошибка: ${err}`));
   }
 
+  function handleRegisterSuccess(item) {
+    setRegisterSuccess(item);
+  }
+
+  function handleRegister(email, password) {
+    auth.register(email, password)
+       .then((result) => {
+         console.log(result)
+        if (result) {
+          history.push("/sign-in");
+          handleRegisterSuccess(true);
+          handleInfoTooltip();
+        }
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+        handleRegisterSuccess(false);
+        handleInfoTooltip();;
+      });
+  }
+
     return (
       <CurrentUserContext.Provider value={currentUser}>
           <div className="page">
@@ -145,24 +170,11 @@ function App() {
               />
 
               <Switch>
-                <Route path="/sign-in">
-                  <Login 
-                    //isOpen={isEnterPopupOpen} 
-                    //onClose={closeAllPopups}
-                    //onSignOut={handleUpdateUser}
-                  />
-                </Route>
-
-                <Route path="/sign-up">
-                  <Register 
-                    //isOpen={isRegisterPopupOpen} 
-                    //onClose={closeAllPopups}
-                    //onSignOut={handleUpdateUser}
-                  />
-                </Route>
-
-                
-                  <Main
+                <ProtectedRoute
+                  exact
+                  path="/"
+                  loggedIn={loggedIn}
+                  component={Main}
                   onEditAvatar={handleEditAvatarClick} 
                   onEditProfile={handleEditProfileClick} 
                   onAddPlace={handleAddPlaceClick}
@@ -171,9 +183,25 @@ function App() {
                   onCardLike={handleCardLike}
                   onCardDelete={handleCardDelete}
                 />
-                
-              
-              </Switch>        
+                <Route path="/sign-in">
+                  <Login 
+                   // massage={massage}
+                    //isOpen={isEnterPopupOpen} 
+                    //onClose={closeAllPopups}
+                    //onSignOut={handleUpdateUser}
+                  />
+                </Route>
+                <Route path="/sign-up">
+                  <Register
+                    onRegister={handleRegister}
+                    //massage={massage} 
+                    //isOpen={isRegisterPopupOpen} 
+                    //onClose={closeAllPopups}
+                    //onSignOut={handleUpdateUser}
+                  />
+                </Route>
+              </Switch>
+
               <Footer />
 
               <EditProfilePopup 
@@ -208,7 +236,7 @@ function App() {
               <InfoTooltip
                 isOpen={isInfoTooltipOpen}
                 onClose={closeAllPopups}
-                //isSuccess={registerSuccess}
+                isSuccess={registerSuccess}
               />
 
 
@@ -219,4 +247,5 @@ function App() {
 }
 
 export default App;
+//export default withRouter(App);
 

@@ -3,14 +3,13 @@ import React from "react";
 function InfoTooltip(props) {
   return (
     <section 
-    //className='popup' 
     className={props.isOpen ? 'popup popup_opened' : 'popup'} 
     id="InfoTooltip">
       <div className="popup__container">
         <button
           className="popup__close-button"
           type="button"
-          //onClick={props.onClose}
+          onClick={props.onClose}
         />
         {props.isSuccess ? (
           <>
