@@ -145,7 +145,6 @@ function App() {
   function handleRegister(email, password) {
     auth.register(email, password)
        .then((result) => {
-         console.log(result)
         if (result) {
           history.push("/sign-in");
           handleRegisterSuccess(true);
@@ -155,7 +154,7 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
         handleRegisterSuccess(false);
-        handleInfoTooltip();;
+        handleInfoTooltip();
       });
   }
 
