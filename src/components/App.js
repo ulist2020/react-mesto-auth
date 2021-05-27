@@ -14,6 +14,7 @@ import AddPlacePopup from './AddPlacePopup';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from "./ProtectedRoute";
+import InfoTooltip from "./InfoTooltip";
 
 
 function App() {
@@ -21,8 +22,9 @@ function App() {
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
-  const [isRegisterPopupOpen, setisRegisterPopupOpen] = useState(false);
-  const [isEnterPopupOpen, setisEnterPopupOpen] = useState(false);
+  const [isInfoTooltipOpen, setisInfoTooltipOpen] = useState(false);
+  const [loggedIn, setloggedIn] = useState(false);
+  //const [isEnterPopupOpen, setisEnterPopupOpen] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState({link:'',name:'',isOpen: false});
 
@@ -39,12 +41,12 @@ function App() {
   function handleAddPlaceClick() {
     setisAddPlacePopupOpen(true);
   }
-  function handlRegistrationClick() {
-    setisRegisterPopupOpen(true);
+  function handleInfoTooltip() {
+    setisInfoTooltipOpen(true);
   }
-  function handleEnterClick() {
-    setisEnterPopupOpen(true);
-  }
+  //function handleEnterClick() {
+    //setisEnterPopupOpen(true);
+  //}
 
    function handleCardClick(name,link) {
     setSelectedCard({
@@ -58,6 +60,7 @@ function App() {
     setisEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setisAddPlacePopupOpen(false);
+    setisInfoTooltipOpen(false);
     setSelectedCard({link:'',name:'',isOpen: false})
   }
 
@@ -158,8 +161,8 @@ function App() {
                   />
                 </Route>
 
-                <ProtectedRoute exact path="/"
-                  component={Main}
+                
+                  <Main
                   onEditAvatar={handleEditAvatarClick} 
                   onEditProfile={handleEditProfileClick} 
                   onAddPlace={handleAddPlaceClick}
@@ -168,6 +171,7 @@ function App() {
                   onCardLike={handleCardLike}
                   onCardDelete={handleCardDelete}
                 />
+                
               
               </Switch>        
               <Footer />
@@ -200,6 +204,11 @@ function App() {
                 card={selectedCard}
                 isOpen={selectedCard.isOpen}
                 onClose={()=> closeAllPopups()} 
+              />
+              <InfoTooltip
+                isOpen={isInfoTooltipOpen}
+                onClose={closeAllPopups}
+                //isSuccess={registerSuccess}
               />
 
 

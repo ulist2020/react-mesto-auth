@@ -44,7 +44,10 @@
 @import url(./blocks/popup/__description/popup__description.css);
 @import url(./blocks/popup/__header/popup__header.css);
 @import url(./blocks/popup/__header/_auth/popup__header_auth.css);
+@import url(./blocks/popup/__header/_info/popup__header_info.css);
 @import url(./blocks/popup/__image/popup__image.css);
+@import url(./blocks/popup/__img/popup__img.css);
+@import url(./blocks/popup/__img/_fail/popup__img_fail.css);
 @import url(./blocks/popup/__input/popup__input.css);
 @import url(./blocks/popup/__input/_auth/popup__input_auth.css);
 @import url(./blocks/popup/_opened/popup_opened.css);
