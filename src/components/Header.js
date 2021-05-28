@@ -19,7 +19,7 @@ function Header(props) {
               </Link>
             </Route>
             <Route path="/">
-              <p className="header__email">япвичарыртсчв</p>
+              <p className="header__email">{props.email}</p>
               <p className="header__auth" >
                 Выйти
               </p>

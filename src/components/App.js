@@ -25,6 +25,7 @@ function App() {
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isInfoTooltipOpen, setisInfoTooltipOpen] = useState(false);
   const [loggedIn, setloggedIn] = useState(false);
+  const [dataUser, setDataUser] = useState({});
   //const [massage, setMassage] = useState("");
   //const [isEnterPopupOpen, setisEnterPopupOpen] = useState(false);
   const history = useHistory();
@@ -146,9 +147,13 @@ function App() {
     auth.register(email, password)
        .then((result) => {
         if (result) {
-          history.push("/sign-in");
+          setloggedIn(true);
           handleRegisterSuccess(true);
           handleInfoTooltip();
+          setDataUser({
+            email: email,
+            })
+          history.push("/");
         }
       })
       .catch((err) => {
@@ -156,7 +161,53 @@ function App() {
         handleRegisterSuccess(false);
         handleInfoTooltip();
       });
-  }
+  };
+
+  function handleLogin(email, password) {
+    auth.authorize(email, password)
+       .then((result) => {
+        if (result.token) {
+          localStorage.setItem("jwt", result.token);
+          setDataUser({
+            email: email,
+            password: password,
+          });
+          setloggedIn(true);
+          history.push("/");
+        }
+        /*if (result) {
+          setloggedIn(true);
+          handleRegisterSuccess(true);
+          handleInfoTooltip();
+          setDataUser({
+            email: email,
+            })
+          history.push("/");
+        }*/
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+        handleRegisterSuccess(false);
+        handleInfoTooltip();
+      });
+  };
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      auth.getContent(jwt)
+        .then((result) => {
+           setDataUser({
+               email: result.data.email
+           })
+            setloggedIn(true);
+            history.push("/");
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+    }
+  }, []);
 
     return (
       <CurrentUserContext.Provider value={currentUser}>
@@ -164,6 +215,7 @@ function App() {
             <div className="page__container">
 
               <Header
+                email={dataUser.email}
                //onRegistration={handlRegistrationClick}
                //onEnter={handleEnterClick}
               />
@@ -184,7 +236,7 @@ function App() {
                 />
                 <Route path="/sign-in">
                   <Login
-                  onLogin={handleLogin} 
+                    onLogin={handleLogin} 
                    // massage={massage}
                     //isOpen={isEnterPopupOpen} 
                     //onClose={closeAllPopups}
