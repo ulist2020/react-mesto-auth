@@ -26,8 +26,6 @@ function App() {
   const [isInfoTooltipOpen, setisInfoTooltipOpen] = useState(false);
   const [loggedIn, setloggedIn] = useState(false);
   const [dataUser, setDataUser] = useState({});
-  //const [massage, setMassage] = useState("");
-  //const [isEnterPopupOpen, setisEnterPopupOpen] = useState(false);
   const history = useHistory();
   const [registerSuccess, setRegisterSuccess] = useState(false);
 
@@ -49,9 +47,6 @@ function App() {
   function handleInfoTooltip() {
     setisInfoTooltipOpen(true);
   }
-  //function handleEnterClick() {
-    //setisEnterPopupOpen(true);
-  //}
 
    function handleCardClick(name,link) {
     setSelectedCard({
@@ -175,15 +170,6 @@ function App() {
           setloggedIn(true);
           history.push("/");
         }
-        /*if (result) {
-          setloggedIn(true);
-          handleRegisterSuccess(true);
-          handleInfoTooltip();
-          setDataUser({
-            email: email,
-            })
-          history.push("/");
-        }*/
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -207,7 +193,14 @@ function App() {
           console.log(`Ошибка: ${err}`);
         });
     }
-  }, []);
+  }, [history]);
+
+  function handleLogOut () {
+    localStorage.removeItem("jwt");
+    setloggedIn(false);
+    setDataUser({});
+    history.push("/sign-in");
+  };
 
     return (
       <CurrentUserContext.Provider value={currentUser}>
@@ -216,8 +209,7 @@ function App() {
 
               <Header
                 email={dataUser.email}
-               //onRegistration={handlRegistrationClick}
-               //onEnter={handleEnterClick}
+                onLogout={handleLogOut}
               />
 
               <Switch>
@@ -237,19 +229,11 @@ function App() {
                 <Route path="/sign-in">
                   <Login
                     onLogin={handleLogin} 
-                   // massage={massage}
-                    //isOpen={isEnterPopupOpen} 
-                    //onClose={closeAllPopups}
-                    //onSignOut={handleUpdateUser}
                   />
                 </Route>
                 <Route path="/sign-up">
                   <Register
                     onRegister={handleRegister}
-                    //massage={massage} 
-                    //isOpen={isRegisterPopupOpen} 
-                    //onClose={closeAllPopups}
-                    //onSignOut={handleUpdateUser}
                   />
                 </Route>
               </Switch>
@@ -291,7 +275,6 @@ function App() {
                 isSuccess={registerSuccess}
               />
 
-
             </div>
           </div>
       </CurrentUserContext.Provider>
@@ -299,5 +282,4 @@ function App() {
 }
 
 export default App;
-//export default withRouter(App);
 

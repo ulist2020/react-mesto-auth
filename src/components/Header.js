@@ -9,18 +9,18 @@ function Header(props) {
           
           <Switch>
             <Route path="/sign-up">
-              <Link to="./sign-in" className="header__auth" onClick={props.onEnter}>
+              <Link to="./sign-in" className="header__auth" >
                 Войти
               </Link>
             </Route>
             <Route path="/sign-in">
-              <Link to="./sign-up" className="header__auth" onClick={props.onRegistration} >
+              <Link to="./sign-up" className="header__auth" >
                 Регистрация
               </Link>
             </Route>
             <Route path="/">
               <p className="header__email">{props.email}</p>
-              <p className="header__auth" >
+              <p className="header__auth" onClick={props.onLogout}>
                 Выйти
               </p>
             </Route>
