@@ -44,9 +44,7 @@ function Register(props) {
                     required 
                 />
                     <button className="popup__button popup__button_auth" type="submit" >Зарегестрироваться</button>
-                        <Link to="/sign-in" className="popup__register-auth">
-                             Уже зарегистрированны? Войти
-                        </Link>
+                        <Link to="/sign-in" className="popup__register-auth">Уже зарегистрированны? Войти</Link>
         </form>
     );
 }
