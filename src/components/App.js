@@ -26,15 +26,12 @@ function App() {
   const [isInfoTooltipOpen, setisInfoTooltipOpen] = useState(false);
   const [loggedIn, setloggedIn] = useState(false);
   const [dataUser, setDataUser] = useState({});
-  const history = useHistory();
   const [registerSuccess, setRegisterSuccess] = useState(false);
-
   const [selectedCard, setSelectedCard] = useState({link:'',name:'',isOpen: false});
-
   const [cards, setCards] = useState([]);
-
   const [currentUser, setCurrentUser] = useState({});
-
+  const history = useHistory();
+  
   function handleEditAvatarClick() {
     setisEditAvatarPopupOpen(true);
   }

@@ -30,7 +30,6 @@ function Register(props) {
                     name="email" 
                     required 
                 />
-
                 <input 
                     value={password}
                     onChange={handleChangePassword} 
