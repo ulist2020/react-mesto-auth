@@ -25,8 +25,8 @@ function App() {
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isInfoTooltipOpen, setisInfoTooltipOpen] = useState(false);
   const [loggedIn, setloggedIn] = useState(false);
-  const [dataUser, setDataUser] = useState({});
-  const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
+  const [isAuthSuccess, setIsAuthSuccess] = useState(false);
   const [selectedCard, setSelectedCard] = useState({link:'',name:'',isOpen: false});
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
@@ -131,26 +131,22 @@ function App() {
       .catch((err) => console.log(`Ошибка: ${err}`));
   }
 
-  function handleRegisterSuccess(item) {
-    setRegisterSuccess(item);
+  function handleAuthSuccess(item) {
+    setIsAuthSuccess(item);
   }
 
   function handleRegister(email, password) {
     auth.register(email, password)
        .then((result) => {
         if (result) {
-          setloggedIn(true);
-          handleRegisterSuccess(true);
+          handleAuthSuccess(true);
           handleInfoTooltip();
-          setDataUser({
-            email: email,
-            })
-          history.push("/");
+          history.push("/sign-in");
         }
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-        handleRegisterSuccess(false);
+        handleAuthSuccess(false);
         handleInfoTooltip();
       });
   };
@@ -160,9 +156,8 @@ function App() {
        .then((result) => {
         if (result.token) {
           localStorage.setItem("jwt", result.token);
-          setDataUser({
+          setUserEmail({
             email: email,
-            password: password,
           });
           setloggedIn(true);
           history.push("/");
@@ -170,7 +165,7 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-        handleRegisterSuccess(false);
+        handleAuthSuccess(false);
         handleInfoTooltip();
       });
   };
@@ -180,7 +175,7 @@ function App() {
     if (jwt) {
       auth.getContent(jwt)
         .then((result) => {
-           setDataUser({
+           setUserEmail({
                email: result.data.email
            })
             setloggedIn(true);
@@ -195,7 +190,7 @@ function App() {
   function handleLogOut () {
     localStorage.removeItem("jwt");
     setloggedIn(false);
-    setDataUser({});
+    setUserEmail(' ');
     history.push("/sign-in");
   };
 
@@ -205,7 +200,7 @@ function App() {
             <div className="page__container">
 
               <Header
-                email={dataUser.email}
+                email={userEmail.email}
                 onLogout={handleLogOut}
               />
 
@@ -269,7 +264,7 @@ function App() {
               <InfoTooltip
                 isOpen={isInfoTooltipOpen}
                 onClose={closeAllPopups}
-                isSuccess={registerSuccess}
+                isSuccess={isAuthSuccess}
               />
 
             </div>

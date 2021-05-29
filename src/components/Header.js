@@ -20,9 +20,9 @@ function Header(props) {
             </Route>
             <Route path="/">
               <p className="header__email">{props.email}</p>
-              <p className="header__auth" onClick={props.onLogout}>
+              <button className="header__auth" onClick={props.onLogout}>
                 Выйти
-              </p>
+              </button>
             </Route>
           </Switch>
         </div>

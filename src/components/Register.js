@@ -18,7 +18,7 @@ function Register(props) {
     props.onRegister(email, password);
   }
     return (
-        <form onSubmit={handleSubmit} className="popup__container popup__container_auth" method="POST"  noValidate>
+        <form onSubmit={handleSubmit} className="popup__container popup__container_auth" noValidate>
             <h3 className="popup__header popup__header_auth">Регистрация</h3>
                 <input
                     value={email}

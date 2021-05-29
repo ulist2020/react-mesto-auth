@@ -7,7 +7,10 @@
     cursor: pointer;
     transition: opacity linear 0.5s;
     color: #FFFFFF;
-    text-decoration: none;
+    background-color: #000000;
+    border: none;
+    padding: 0;
+    height: 60px;
 }
 
 .header__auth:hover{

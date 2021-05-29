@@ -1,7 +1,7 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function EditProfilePopup(props) {
+function EditAvatarPopup(props) {
     const avatarRef = React.useRef();
 
     function handleSubmit(e) {
@@ -16,14 +16,11 @@ function EditProfilePopup(props) {
         <PopupWithForm 
         name="popup-update-avatar" 
         title="Обновить аватар"
-        classNameForm="popup__container"
-        classNameCloseButton="popup__close-button"
-        classNameHeader="popup__header"
-        classNameButton="popup__button" 
         isOpen={props.isOpen}
         onClose={props.onClose}
         onSubmit={handleSubmit}
         buttonText='Сохранить'
+        className="popup__container popup__container_avatar"
       >
           <input 
           ref={avatarRef} 
@@ -39,4 +36,4 @@ function EditProfilePopup(props) {
     );
   }
   
-  export default EditProfilePopup;
+  export default EditAvatarPopup;
