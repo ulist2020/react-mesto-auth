@@ -33,7 +33,7 @@ function Card(props) {
   return (
     <li   className="photo__card">
     <div onClick={handleClick} className="photo__card-place" style={{ backgroundImage: `url(${props.link})` }}/>
-    <button className={cardDeleteButtonClassName} onClick={handleDeleteClick} type="button" aria-label="Удалить фото" />
+    <button className={cardDeleteButtonClassName} onClick={handleDeleteClick} type="reset" aria-label="Удалить фото" />
     <div className="photo__flex">
       <h2 className="photo__card-discprition">{props.name}</h2>
       <div className="photo__like-container">

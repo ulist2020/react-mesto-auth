@@ -77,8 +77,8 @@
 }
 
     //Удаление карточки
-    deleteCard(id){
-        return fetch(`${this._address}/cards/${id}`, {
+    deleteCard(data){
+        return fetch(`${this._address}/cards/${data._id}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: this._token,

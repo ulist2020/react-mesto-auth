@@ -24,12 +24,14 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isInfoTooltipOpen, setisInfoTooltipOpen] = useState(false);
+  const [isConfirmPopupOpen, setisConfirmPopupOpen] = useState(false);
   const [loggedIn, setloggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [isAuthSuccess, setIsAuthSuccess] = useState(false);
   const [selectedCard, setSelectedCard] = useState({link:'',name:'',isOpen: false});
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
+  const [cardForDelete, setCardForDelete] = useState();
   const history = useHistory();
   
   function handleEditAvatarClick() {
@@ -43,6 +45,10 @@ function App() {
   }
   function handleInfoTooltip() {
     setisInfoTooltipOpen(true);
+  }
+  function handleConfirm(card) {
+    setCardForDelete(card);
+    setisConfirmPopupOpen(true);
   }
 
    function handleCardClick(name,link) {
@@ -58,7 +64,8 @@ function App() {
     setEditProfilePopupOpen(false);
     setisAddPlacePopupOpen(false);
     setisInfoTooltipOpen(false);
-    setSelectedCard({link:'',name:'',isOpen: false})
+    setSelectedCard({link:'',name:'',isOpen: false});
+    setisConfirmPopupOpen(false);
   }
 
   useEffect(() => {
@@ -94,10 +101,12 @@ function App() {
     .catch((err) => console.log(`Ошибка: ${err}`));  
   }
 
-  function handleCardDelete (card){
-    api.deleteCard(card._id)
+  function handleCardDelete (evt){
+    evt.preventDefault();
+    api.deleteCard(cardForDelete)
         .then(() => {
-          const newCards = cards.filter((c) => c._id !== card._id);
+          const newCards = cards.filter((c) => c._id !== cardForDelete._id);
+          setisConfirmPopupOpen(false);
           setCards(newCards);
         })
         .catch((err) => console.log(`Ошибка: ${err}`));
@@ -216,7 +225,7 @@ function App() {
                   cards={cards}
                   onCardClick={handleCardClick}
                   onCardLike={handleCardLike}
-                  onCardDelete={handleCardDelete}
+                  onCardDelete={handleConfirm}
                 />
                 <Route path="/sign-in">
                   <Login
@@ -251,10 +260,14 @@ function App() {
               />
 
               <PopupWithForm 
+                isOpen={isConfirmPopupOpen}
+                onSubmit={handleCardDelete}
+                onClose={closeAllPopups}
                 name="popup-confirm" 
                 title="Вы уверены?"
-              >
-              </PopupWithForm>
+                className="popup__container popup__confirm-container"
+                buttonText='Да'
+              />
 
               <ImagePopup
                 card={selectedCard}
